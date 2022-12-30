@@ -50,7 +50,8 @@ class VesselEntity(Base):
     type = Column(String, nullable=False)
     battlefield_id = Column(Integer, ForeignKey("battlefield.id"), nullable=False)
     battlefield = relationship("BattlefieldEntity", back_populates="vessel")
-    weapon = relationship("WeaponEntity", back_populates="vessel", uselist=False, cascade="all, delete-orphan")
+    weapon = relationship("WeaponEntity", back_populates="vessel",
+                          uselist=False, cascade="all, delete-orphan")
 
 
 class WeaponEntity(Base):
