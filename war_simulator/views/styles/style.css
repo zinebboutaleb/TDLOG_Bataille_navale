@@ -40,6 +40,8 @@
 .vertical-container {
     display: flex;
     flex-direction: column;
+    width: 45%;
+    float: left;
 }
 
 .centered-form {
@@ -90,14 +92,28 @@ select {
 }
 
 table {
+  width: 100%;
   border: 1px solid black;
-  position:right;
 }
+
+th, td {
+  text-align: left;
+  padding: 8px;
+   width: 16.66%;
+}
+
+
 th {
-  background-color: #ddd;
+  background-color: #87CEFA;
+  color: white;
 }
+
+
 
 .manage_table{
 display:flex;
-position:right;
+width: 45%;
+float: left;
+margin-left: 10px;
+
 }
