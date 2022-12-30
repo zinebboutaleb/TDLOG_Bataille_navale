@@ -1,5 +1,6 @@
 import uvicorn
-from fastapi import FastAPI, Request
+from starlette.staticfiles import StaticFiles
+from fastapi import FastAPI, Request, Path
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from war_simulator.model.game import Game
@@ -7,6 +8,8 @@ from war_simulator.services.game_service import GameService
 
 app = FastAPI()
 game_service = GameService()
+BASE_PATH = Path(__file__).resolve().parent.parent
+app.mount("/views", StaticFiles(directory=BASE_PATH / 'views'), name="views")
 
 
 class CreateGameData(BaseModel):

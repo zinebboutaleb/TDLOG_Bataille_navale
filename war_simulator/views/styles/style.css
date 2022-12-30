@@ -1,0 +1,103 @@
+#menu {
+  position: fixed; /* Fixe la position du menu sur la page */
+  top: 0; /* Place le menu en haut de la page */
+  right: 0; /* Place le menu à gauche de la page */
+  width: 100%; /* Fait en sorte que le menu occupe toute la largeur de la page */
+  background-color: #333; /* Change la couleur de fond du menu */
+  z-index: 1;
+}
+
+
+#menu ul {
+  list-style-type: none; /* Supprime les points devant chaque élément de la liste */
+  margin: 0; /* Supprime les marges autour de la liste */
+  padding: 0; /* Supprime les espaces autour de chaque élément de la liste */
+  overflow: hidden; /* Cache les éléments qui dépassent du menu */
+}
+
+#menu li {
+  float: right; /* Place chaque élément de la liste côte à côte */
+}
+
+#menu a {
+  display: block; /* Transforme chaque lien en bloc */
+  color: white; /* Change la couleur du texte des liens */
+  text-align: center; /* Centre le texte des liens */
+  padding: 14px 16px; /* Ajoute un espace autour du texte des liens */
+  text-decoration: none; /* Supprime la surbrillance des liens */
+}
+
+#menu a:hover {
+  background-color: #111; /* Change la couleur de fond lorsque la souris passe sur un lien */
+}
+
+.centered-element {
+ margin-right: 0;
+ padding: 20px;
+ width: 20px;
+}
+
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.centered-form {
+    padding: 15px;
+    margin-left: 8²0px;
+}
+
+input {
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+input:focus {
+    border-color: #333;
+}
+
+.submit-button {
+    padding: 5px 15px;
+    background: #ccc;
+    border: 0 none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.submit-button:hover {
+    background: #828080;
+}
+
+.submit-button:focus {
+    background: #8d7979;
+}
+
+.form-result {
+    visibility: hidden;
+    position: absolute;
+    margin-top: 5%;
+    margin-left: 10%;
+}
+
+select {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 44px;
+  display: flex;
+
+}
+
+table {
+  border: 1px solid black;
+  position:right;
+}
+th {
+  background-color: #ddd;
+}
+
+.manage_table{
+display:flex;
+position:right;
+}
