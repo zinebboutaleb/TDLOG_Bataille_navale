@@ -22,3 +22,43 @@ class PlayerEntity(Base):
     battle_field = relationship("BattlefieldEntity",
                                 back_populates="player",
                                 uselist=False, cascade="all, delete-orphan")
+
+
+class BattlefieldEntity(Base):
+    __tablename__ = 'battlefield'
+    id = Column(Integer, primary_key=True)
+    min_x = Column(Integer, nullable=False)
+    min_y = Column(Integer, nullable=False)
+    min_z = Column(Integer, nullable=False)
+    max_x = Column(Integer, nullable=False)
+    max_y = Column(Integer, nullable=False)
+    max_z = Column(Integer, nullable=False)
+    max_power = Column(Integer, nullable=False)
+    player_id = Column(Integer, ForeignKey("player.id"), nullable=False)
+    player = relationship("PlayerEntity", back_populates="battle_field")
+    vessel = relationship("VesselEntity", back_populates="battlefield",
+                          uselist=False, cascade="all, delete-orphan")
+
+
+class VesselEntity(Base):
+    __tablename__ = 'vessel'
+    id = Column(Integer, primary_key=True)
+    coord_x = Column(Integer, nullable=False)
+    coord_y = Column(Integer, nullable=False)
+    coord_z = Column(Integer, nullable=False)
+    hits_to_be_destroyed = Column(Integer, nullable=False)
+    type = Column(String, nullable=False)
+    battlefield_id = Column(Integer, ForeignKey("battlefield.id"), nullable=False)
+    battlefield = relationship("BattlefieldEntity", back_populates="vessel")
+    weapon = relationship("WeaponEntity", back_populates="vessel", uselist=False, cascade="all, delete-orphan")
+
+
+class WeaponEntity(Base):
+    __tablename__ = 'weapon'
+    id = Column(Integer, primary_key=True)
+    ammunitions = Column(Integer, nullable=False)
+    range = Column(Integer, nullable=False)
+    type = Column(String, nullable=False)
+    vessel_id = Column(Integer, ForeignKey("vessel.id"), nullable=False)
+    vessel = relationship("VesselEntity", back_populates="weapon")
+
