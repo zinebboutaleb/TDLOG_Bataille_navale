@@ -1,6 +1,7 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+from model.game import Game
 
 engine = create_engine('sqlite:////tmp/tdlog.db', echo=True, future=True)
 Base = declarative_base(bind=engine)
@@ -63,3 +64,19 @@ class WeaponEntity(Base):
     vessel_id = Column(Integer, ForeignKey("vessel.id"), nullable=False)
     vessel = relationship("VesselEntity", back_populates="weapon")
 
+
+class GameDao:
+    def __init__(self):
+        Base.metadata.create_all()
+        self.db_session = Session()
+
+    def create_game(self, game: Game) -> int:
+        game_entity = map_to_game_entity(game)
+        self.db_session.add(game_entity)
+        self.db_session.commit()
+        return game_entity.id
+
+    def find_game(self, game_id: int) -> Game:
+        stmt = select(GameEntity).where(GameEntity.id == game_id)
+        game_entity = self.db_session.scalars(stmt).one()
+        return map_to_game(game_entity)
