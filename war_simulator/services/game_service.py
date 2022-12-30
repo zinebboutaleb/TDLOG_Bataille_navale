@@ -1,8 +1,8 @@
-from dao.game_dao import GameDao
-from model.game import Game
-from model.battlefield import Battlefield
-from model.player import Player
-from model.vessel import Vessel
+from war_simulator.dao.game_dao import GameDao
+from war_simulator.model.game import Game
+from war_simulator.model.battlefield import Battlefield
+from war_simulator.model.player import Player
+from war_simulator.model.vessel import Vessel
 
 
 class GameService:

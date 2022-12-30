@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
-from model.game import Game
-from model.player import Player
-from model.vessel import Vessel
+from war_simulator.model.game import Game
+from war_simulator.model.player import Player
+from war_simulator.model.vessel import Vessel
 
 engine = create_engine('sqlite:////tmp/tdlog.db', echo=True, future=True)
 Base = declarative_base(bind=engine)

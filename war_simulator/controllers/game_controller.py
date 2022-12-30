@@ -2,8 +2,8 @@ import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from model.game import Game
-from services.game_service import GameService
+from war_simulator.model.game import Game
+from war_simulator.services.game_service import GameService
 
 app = FastAPI()
 game_service = GameService()
