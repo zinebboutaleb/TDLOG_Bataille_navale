@@ -2,6 +2,8 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, selec
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from model.game import Game
+from model.player import Player
+from model.vessel import Vessel
 
 engine = create_engine('sqlite:////tmp/tdlog.db', echo=True, future=True)
 Base = declarative_base(bind=engine)
@@ -69,14 +71,77 @@ class GameDao:
     def __init__(self):
         Base.metadata.create_all()
         self.db_session = Session()
-
     def create_game(self, game: Game) -> int:
-        game_entity = map_to_game_entity(game)
+        game_entity = self.map_to_game_entity(game)
         self.db_session.add(game_entity)
         self.db_session.commit()
         return game_entity.id
-
     def find_game(self, game_id: int) -> Game:
         stmt = select(GameEntity).where(GameEntity.id == game_id)
         game_entity = self.db_session.scalars(stmt).one()
-        return map_to_game(game_entity)
+        return self.map_to_game(game_entity)
+
+    def map_to_game_entity(game : Game) -> GameEntity:
+        game_entity = GameEntity()
+        return GameEntity
+
+    def map_to_game(game_entity : GameEntity) -> Game:
+        game = Game(game_entity.id)
+        game.id = game_entity.id
+        return game
+
+
+class PlayerDao:
+    def __init__(self):
+        Base.metadata.create_all()
+        self.db_session = Session()
+
+    def create_player(self, player: Player) -> int:
+        player_entity = self.map_to_player(Player)
+        self.db_session.add(player_entity)
+        self.db_session.commit()
+        return player_entity.id
+
+    def find_player(self, player_id: int) -> Player:
+        stmt = select(PlayerEntity).where(PlayerEntity.id == player_id)
+        player_entity = self.db_session.scalars(stmt).one()
+        return self.map_to_player(player_entity)
+
+    def map_to_player_entity(player : Player) -> PlayerEntity:
+        player_entity = PlayerEntity()
+        player_entity.name = player.name
+        player_entity.battle_field = player.battle_field
+        return PlayerEntity
+
+    def map_to_player(player_entity : PlayerEntity) -> Player:
+        player = Player(player_entity.name,player_entity.battle_field)
+        player.id = ( player_entity.id)
+        return player
+
+class VesselDao:
+    def __init__(self):
+        Base.metadata.create_all()
+        self.db_session = Session()
+    def create_vessel(self, vessel: Vessel) -> int:
+        vessel_entity = self.map_to_vessel(vessel)
+        self.db_session.add(vessel_entity)
+        self.db_session.commit()
+        return vessel_entity.id
+    def find_vessel(self, vessel_id: int) -> Vessel:
+        stmt = select(VesselEntity).where(Vessel.id == vessel_id)
+        vessel_entity = self.db_session.scalars(stmt).one()
+        return self.map_to_vessel(vessel_entity)
+    def map_to_vessel_entity(vessel : Vessel,type) -> VesselEntity:
+        vessel_entity = VesselEntity()
+        vessel_entity.coordinates = (VesselEntity.coord_x,VesselEntity.coord_y,VesselEntity.coord_z)
+        vessel_entity.hits_to_be_destroyed = vessel.max_hits
+        vessel_entity.weapon = vessel.weapon
+        vessel_entity.type = type
+
+        return vessel_entity
+    def map_to_vessel(vessel_entity : VesselEntity,type) -> Vessel:
+        vessel = Vessel((vessel_entity.coord_x,vessel_entity.coord_y,vessel_entity.coord_z),
+                        vessel_entity.hits_to_be_destroyed,vessel_entity.weapon)
+        vessel.id = ( vessel_entity.id)
+        return vessel
+
