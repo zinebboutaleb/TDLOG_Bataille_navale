@@ -102,6 +102,7 @@ th, td {
    width: 16.66%;
 }
 
+tr:nth-child(even){background-color: #87CEFA}
 
 th {
   background-color: #87CEFA;
