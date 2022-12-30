@@ -81,6 +81,12 @@ class GameDao:
         game_entity = self.db_session.scalars(stmt).one()
         return self.map_to_game(game_entity)
 
+    def update_game(self, game: Game):
+        game_entity = self.map_to_game_entity(game)
+        self.db_session.merge(game_entity)              #La méthode merge de la session SQLAlchemy
+        self.db_session.commit()                        # permet de mettre à jour
+                                                        # une entité en base de données.
+
     def map_to_game_entity(game : Game) -> GameEntity:
         game_entity = GameEntity()
         return GameEntity
